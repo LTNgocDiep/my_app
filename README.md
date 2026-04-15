@@ -14,19 +14,8 @@ bench install-app my_app
 
 ### Contributing
 
-This app uses `pre-commit` for code formatting and linting. Please [install pre-commit](https://pre-commit.com/#installation) and enable it for this repository:
 
-```bash
-cd apps/my_app
-pre-commit install
-```
 
-Pre-commit is configured to use the following tools for checking and formatting your code:
-
-- ruff
-- eslint
-- prettier
-- pyupgrade
 
 ### CI
 
