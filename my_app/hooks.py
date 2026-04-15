@@ -250,9 +250,20 @@ after_migrate = "my_app.utils.add_qa_status_to_task"
 
 
 fixtures = [
-    {
+{
         "dt": "Property Setter",
-        "filters": [["doc_type", "=", "Task"], ["field_name", "=", "status"]]
+        "filters": [
+            ["doc_type", "=", "Task"],
+            ["field_name", "in", ["status", "color"]] 
+        ]
+    },
+    {
+        "dt": "Custom DocPerm",
+        "filters": [["parent", "=", "Task"], ["permlevel", "=", 1]]
+    },
+    {
+        "dt": "Custom Field",
+        "filters": [["dt", "=", "Task"]]
     }
 ]
 
@@ -262,3 +273,8 @@ override_doctype_class = {
     "Task": "my_app.overrides.task.CustomTask"
 }
 
+scheduler_events = {
+    "daily": [
+        "my_app.overrides.task_utils.set_tasks_as_overdue_custom"
+    ]
+}
