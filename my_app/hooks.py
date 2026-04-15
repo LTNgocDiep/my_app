@@ -84,6 +84,7 @@ app_license = "mit"
 
 # before_install = "my_app.install.before_install"
 # after_install = "my_app.install.after_install"
+after_migrate = "my_app.utils.add_qa_status_to_task"
 
 # Uninstallation
 # ------------
@@ -246,4 +247,18 @@ app_license = "mit"
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
+
+
+fixtures = [
+    {
+        "dt": "Property Setter",
+        "filters": [["doc_type", "=", "Task"], ["field_name", "=", "status"]]
+    }
+]
+
+on_session_creation = "my_app.utils.sync_task_status_options"
+
+override_doctype_class = {
+    "Task": "my_app.overrides.task.CustomTask"
+}
 
