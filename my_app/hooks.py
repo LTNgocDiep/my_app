@@ -284,3 +284,13 @@ has_permission = {
 }
 
 
+
+
+doc_events = {
+    "Task": {
+        "validate": "my_app.overrides.task.validate_task_restricted_edit"
+    }
+}
+doctype_js = {
+    "Task": "public/js/task.js"
+}

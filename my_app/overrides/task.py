@@ -66,3 +66,74 @@ def set_tasks_as_overdue_custom():
             frappe.log_error(f"Error updating task {task.name}", "Overdue Task Update")
 
 
+import frappe
+from frappe import _
+
+ALLOWED_FIELDS = {"status", "description"}
+
+SYSTEM_FIELDS = {
+    "name",
+    "owner",
+    "creation",
+    "modified",
+    "modified_by",
+    "docstatus",
+    "idx",
+    "_user_tags",
+    "_comments",
+    "_assign",
+    "_liked_by",
+}
+
+
+def validate_task_restricted_edit(doc, method=None):
+    user = frappe.session.user
+
+    if user == "Guest":
+        return
+
+    roles = frappe.get_roles(user)
+
+    # Chỉ áp dụng cho user thường
+    if not ("GS Projects User" in roles and "GS Project Manager" not in roles):
+        return
+
+    # Nếu là doc mới thì có thể bỏ qua, hoặc chặn luôn tùy bạn
+    if doc.is_new():
+        return
+
+    old_doc = doc.get_doc_before_save()
+    if not old_doc:
+        return
+
+    changed_disallowed_fields = []
+
+    for df in doc.meta.fields:
+        fieldname = df.fieldname
+
+        if not fieldname:
+            continue
+
+        if fieldname in SYSTEM_FIELDS:
+            continue
+
+        # bỏ qua field layout
+        if df.fieldtype in ("Section Break", "Column Break", "Tab Break", "HTML", "Button"):
+            continue
+
+        old_value = old_doc.get(fieldname)
+        new_value = doc.get(fieldname)
+
+        if old_value != new_value and fieldname not in ALLOWED_FIELDS:
+            changed_disallowed_fields.append(fieldname)
+
+    if changed_disallowed_fields:
+        frappe.throw(
+            _(
+                "Bạn chỉ được phép chỉnh sửa các trường: {0}. "
+                "Các trường không được phép sửa: {1}"
+            ).format(
+                ", ".join(sorted(ALLOWED_FIELDS)),
+                ", ".join(changed_disallowed_fields)
+            )
+        )
