@@ -273,8 +273,14 @@ override_doctype_class = {
     "Task": "my_app.overrides.task.CustomTask"
 }
 
-scheduler_events = {
-    "daily": [
-        "my_app.overrides.task_utils.set_tasks_as_overdue_custom"
-    ]
+
+
+permission_query_conditions = {
+    "Attendance": "my_app.permissions.attendance_query"
 }
+
+has_permission = {
+    "Attendance": "my_app.permissions.attendance_has_permission"
+}
+
+
