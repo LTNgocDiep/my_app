@@ -112,7 +112,7 @@ frappe.query_reports["GS PTO Sheet"] = {
 	],
 	onload: function () {
 		return frappe.call({
-			method: "my_app.my_app.report.gs_pto_sheet.gs_pto_sheet.get_attendance_years",
+			method: "hrms.hr.report.monthly_attendance_sheet.monthly_attendance_sheet.get_attendance_years",
 			callback: function (r) {
 				var year_filter = frappe.query_report.get_filter("year");
 				year_filter.df.options = r.message;

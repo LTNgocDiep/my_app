@@ -294,3 +294,7 @@ doc_events = {
 doctype_js = {
     "Task": "public/js/task.js"
 }
+
+
+# app_include_js = "my_app.bundle.js"
+app_include_js = ["my_app.bundle.js"]
