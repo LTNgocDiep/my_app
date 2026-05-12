@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../apps/my_app/my_app/public/js/my_app.bundle.js"],
+  "sourcesContent": ["\n\nfunction patch_group_by_sidebar() {\n\n\t$(\".group-by-item\").each(function () {\n\n\t\tlet $item = $(this);\n\n\t\tlet email = decodeURIComponent(\n\t\t\t$item.attr(\"data-value\") || \"\"\n\t\t);\n\n\t\tif (!email.includes(\"@\")) {\n\t\t\treturn;\n\t\t}\n\n\t\tlet fullname =\n\t\t\tfrappe.boot.user_info?.[email]?.fullname ||\n\t\t\temail;\n\n\t\t$item.find(\".group-by-value\").text(fullname);\n\n\t});\n\n}\n\nrequestAnimationFrame(function render_loop() {\n\n\tpatch_group_by_sidebar();\n\n\trequestAnimationFrame(render_loop);\n\n});"],
+  "mappings": "MAEA,SAASA,GAAyB,CAEjC,EAAE,gBAAgB,EAAE,KAAK,UAAY,CAJtC,IAAAC,EAAAC,EAME,IAAIC,EAAQ,EAAE,IAAI,EAEdC,EAAQ,mBACXD,EAAM,KAAK,YAAY,GAAK,EAC7B,EAEA,GAAI,CAACC,EAAM,SAAS,GAAG,EACtB,OAGD,IAAIC,IACHH,GAAAD,EAAA,OAAO,KAAK,YAAZ,YAAAA,EAAwBG,KAAxB,YAAAF,EAAgC,WAChCE,EAEDD,EAAM,KAAK,iBAAiB,EAAE,KAAKE,CAAQ,CAE5C,CAAC,CAEF,CAEA,sBAAsB,SAASC,GAAc,CAE5CN,EAAuB,EAEvB,sBAAsBM,CAAW,CAElC,CAAC",
+  "names": ["patch_group_by_sidebar", "_a", "_b", "$item", "email", "fullname", "render_loop"]
+}

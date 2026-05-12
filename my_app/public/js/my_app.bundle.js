@@ -24,6 +24,12 @@ function patch_group_by_sidebar() {
 
 }
 
-setInterval(() => {
+// setInterval(() => {
+// 	patch_group_by_sidebar();
+// }, 500);
+
+requestAnimationFrame(function render_loop() {
 	patch_group_by_sidebar();
-}, 500);
+	requestAnimationFrame(render_loop);
+
+});
